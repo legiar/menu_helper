@@ -14,6 +14,22 @@ module MenuHelper
     # The css class for the last menu in the menu bar
     cattr_accessor :last_class
     @@last_class = 'ui-menubar-last'
+
+    # The submenu container tag
+    cattr_accessor :submenu_container
+    @@submenu_container = ''
+
+    # The submenu container class
+    cattr_accessor :submenu_container_class
+    @@submenu_container_class = ''
+
+    # The caption container tag
+    cattr_accessor :caption_container
+    @@caption_container = ''
+
+    # The link selected class
+    cattr_accessor :link_selected_class
+    @@link_selected_class = ''
     
     # The unique name assigned to this menu
     attr_reader :name
@@ -52,10 +68,10 @@ module MenuHelper
       
       # Generate the text-based content of the menu
       @content = content_tag(:span, content || @name.underscore.titleize)
+      @content = content_tag(caption_container, @content, {}, false) unless caption_container.blank?
       
       # Set up url
-      url, @url_options = build_url(url_options)
-      @content = link_to(@content, url) if @options[:link] != false
+      @url, @url_options = build_url(url_options)
       
       # Set up default html options
       id_prefix = parent_menu_bar[:id] || parent_menu && parent_menu[:id]
@@ -98,10 +114,12 @@ module MenuHelper
       # Generate the html for the menu
       def content
         content = @content
-        
+        content = link_to(content, @url, :class => selected? ? link_selected_class : '') if @options[:link] != false
+
         if @menu_bar.menus.any?
           # sub-menus have been defined: render markup
           html = @menu_bar.html
+          html = content_tag(submenu_container, html, {:class => submenu_container_class}, false) unless submenu_container.blank?
           
           if attach_active_submenus? || !selected?
             content << html
