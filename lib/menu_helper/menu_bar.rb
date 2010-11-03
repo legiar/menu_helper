@@ -186,7 +186,7 @@ module MenuHelper
       html_options = @html_options.dup
       html_options[:class] = "#{html_options[:class]} #{selected_class}".strip if selected?
       
-      content_tag(tag_name, content, html_options)
+      content_tag(tag_name, content, html_options, false)
     end
     
     private

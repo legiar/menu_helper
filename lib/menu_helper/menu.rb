@@ -81,10 +81,15 @@ module MenuHelper
       html_options[:class] = "#{html_options[:class]} #{selected_class}".strip if selected?
       html_options[:class] = "#{html_options[:class]} #{last_class}".strip if last
       
-      content_tag(tag_name, content, html_options)
+      content_tag(tag_name, content, html_options, false)
     end
     
     private
+      # access Request object from current_page?
+      def request
+        request_controller.request
+      end
+
       # List item
       def tag_name
         'li'
