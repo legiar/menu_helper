@@ -107,7 +107,7 @@ module MenuHelper
   # For more information about how menus are created, see the documentation
   # for MenuHelper::MenuBar#menu.
   def menu_bar(options = {}, html_options = {}, &block)
-    MenuBar.new(@controller, options, html_options, &block).html
+    MenuBar.new(controller, options, html_options, &block).html
   end
 end
 
