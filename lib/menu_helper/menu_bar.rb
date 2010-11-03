@@ -34,7 +34,7 @@ module MenuHelper
       @menus = []
       
       # Set up default html options
-      self[:class] = "#{self[:class]} #{menu_bar_class} #{menu_bar_class}-#{level}".strip
+      self[:class] = "#{self[:class]} #{menu_bar_class} #{menu_bar_class}-#{level}".strip unless menu_bar_class.blank?
       
       yield self if block_given?
     end

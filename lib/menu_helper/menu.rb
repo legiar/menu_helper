@@ -60,7 +60,7 @@ module MenuHelper
       # Set up default html options
       id_prefix = parent_menu_bar[:id] || parent_menu && parent_menu[:id]
       self[:id] ||= "#{id_prefix}-#{@name}" if auto_set_ids? && id_prefix
-      self[:class] = "#{self[:class]} #{menu_class} #{menu_class}-#{level}".strip
+      self[:class] = "#{self[:class]} #{menu_class} #{menu_class}-#{level}".strip unless menu_class.blank?
       
       # Create the menu bar for sub-menus in case any are generated.  Use the
       # same configuration as the parent menu bar.
